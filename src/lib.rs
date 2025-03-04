@@ -49,12 +49,9 @@ impl Preprocessor for InPageTab {
 
                         for tab in tabs {
                             rep.push_str(&format!(r#"<div class="mdbook-inpage-tab-content" id={}-content>"#, tab.name));
-
-                            let parser = pulldown_cmark::Parser::new_ext(&tab.contents, pulldown_cmark::Options::all());
-                            let mut html_output = String::new();
-                            pulldown_cmark::html::push_html(&mut html_output, parser);
-                            rep.push_str(&html_output);
-
+                            rep.push_str("\n\n");
+                            rep.push_str(&tab.contents);
+                            rep.push_str("\n\n");
                             rep.push_str("</div>");
                         }
 
