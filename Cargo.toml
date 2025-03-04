@@ -1,0 +1,13 @@
+[package]
+name = "mdbook-inpage-tab"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = { version = "1.0.97", default-features = false }
+clap = { version = "4.5.31", default-features = false }
+mdbook = { version = "0.4.45", default-features = false }
+pulldown-cmark = { version = "0.13.0", default-features = false, features = ["html"] }
+regex = { version = "1.11.1", default-features = false }
+semver = { version = "1.0.26", default-features = false, features = ["std"] }
+serde_json = { version = "1.0.140", default-features = false }

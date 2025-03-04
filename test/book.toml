@@ -1,0 +1,11 @@
+[book]
+authors = ["shun suzuki"]
+language = "en"
+multilingual = false
+src = "src"
+title = "mdbook-inpage-tab-sample"
+
+[output.html]
+additional-css = ["theme/inpage-tab.css"]
+
+[preprocessor.inpage-tab]

@@ -1,0 +1,63 @@
+.mdbook-inpage-tabs {
+    margin-top: 0px;
+    padding-bottom: 0px;
+    margin: 0 auto;
+    font-size: 0;
+}
+
+.mdbook-inpage-tabs input:checked+.mdbook-inpage-tab-item {
+    border-bottom: 2px solid var(--fg);
+    color: var(--fg);
+}
+
+[num-tabs="1"] {
+    --num-tabs: 1;
+}
+
+[num-tabs="2"] {
+    --num-tabs: 2;
+}
+
+[num-tabs="3"] {
+    --num-tabs: 3;
+}
+
+[num-tabs="4"] {
+    --num-tabs: 4;
+}
+
+.mdbook-inpage-tab-item {
+    margin: 0;
+    width: calc(100%/var(--num-tabs));
+    font-size: 1.6rem;
+    height: 24px;
+    border-bottom: 3px solid var(--sidebar-non-existant);
+    line-height: 24px;
+    text-align: center;
+    color: var(--sidebar-non-existant);
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.mdbook-inpage-tab-item:hover {
+    opacity: 0.75;
+}
+
+input[class="mdbook-inpage-tab"] {
+    display: none;
+    margin: 0;
+}
+
+.mdbook-inpage-tabs .mdbook-inpage-tab-content {
+    display: none;
+    font-size: 1.6rem;
+}
+
+.mdbook-inpage-tabs>[id^=tab1]:checked~#tab1-content,
+.mdbook-inpage-tabs>[id^=tab2]:checked~#tab2-content,
+.mdbook-inpage-tabs>[id^=tab3]:checked~#tab3-content,
+.mdbook-inpage-tabs>[id^=tab4]:checked~#tab4-content {
+    display: block;
+}
