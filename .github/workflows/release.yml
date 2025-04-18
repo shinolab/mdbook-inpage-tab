@@ -25,21 +25,25 @@ jobs:
 
   publish-release:
     needs: [create-release]
-    name: upload-release-asset-${{ matrix.os }}-${{ matrix.arch }}
+    name: upload-release-asset-${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - os: windows-latest
-            name: win
-            arch: x64
+            target: x86_64-pc-windows-msvc
+            cross: false
           - os: macos-latest
-            name: macos
-            arch: aarch64
+            target: aarch64-apple-darwin
+            cross: false
           - os: ubuntu-latest
-            name: linux
-            arch: x64
+            target: x86_64-unknown-linux-gnu
+            cross: false
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            cross: true
+            
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -51,13 +55,19 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
           script: |
-            return 'mdbook-inpage-tab-'+context.payload.ref.replace(/refs\/tags\//, '')+'-${{ matrix.name }}-${{ matrix.arch }}';
+            return 'mdbook-inpage-tab-'+context.payload.ref.replace(/refs\/tags\//, '')+'-${{ matrix.target }}';
       
-      - run: cargo build --release
-      - run: Compress-Archive -Path target/release/mdbook-inpage-tab.exe -DestinationPath assets.zip
+      - run: cargo install cross --git https://github.com/cross-rs/cross
+        if: ${{ matrix.cross }}
+      - run: cross build --release --target ${{ matrix.target }}
+        if: ${{ matrix.cross }}
+      - run: cargo build --release --target ${{ matrix.target }}
+        if: ${{ !matrix.cross }}
+
+      - run: Compress-Archive -Path target/${{ matrix.target }}/release/mdbook-inpage-tab.exe -DestinationPath mdbook-inpage-tab.zip
         if: ${{ matrix.os == 'windows-latest' }}
       - run: |
-            cp target/release/mdbook-inpage-tab mdbook-inpage-tab
+            cp target/${{ matrix.target }}/release/mdbook-inpage-tab mdbook-inpage-tab
             tar -zcvf assets.tar.gz mdbook-inpage-tab
         if: ${{ matrix.os != 'windows-latest'}}
 
