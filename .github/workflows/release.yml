@@ -57,7 +57,7 @@ jobs:
           script: |
             return 'mdbook-inpage-tab-'+context.payload.ref.replace(/refs\/tags\//, '')+'-${{ matrix.target }}';
       
-      - run: cargo install cross --git https://github.com/cross-rs/cross
+      - run: RUSTFLAGS=-Astatic_mut_refs cargo install cross --git https://github.com/cross-rs/cross
         if: ${{ matrix.cross }}
       - run: cross build --release --target ${{ matrix.target }}
         if: ${{ matrix.cross }}
