@@ -18,7 +18,7 @@ jobs:
           prerelease: false
       - run: |
           echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: release_url
           path: release_url.txt
@@ -45,12 +45,12 @@ jobs:
             cross: true
             
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
             toolchain: 'stable'
       - id: get_version
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
@@ -71,7 +71,7 @@ jobs:
             tar -zcvf assets.tar.gz mdbook-inpage-tab
         if: ${{ matrix.os != 'windows-latest'}}
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v6
         with:
           name: release_url
       - id: get_release_info
