@@ -1,9 +1,9 @@
 mod tab;
 
-use mdbook::{
-    book::Book,
-    errors::Error,
-    preprocess::{Preprocessor, PreprocessorContext},
+use mdbook_preprocessor::{
+    Preprocessor, PreprocessorContext,
+    book::{Book, BookItem},
+    errors::{Error, Result},
 };
 
 pub struct InPageTab;
@@ -21,7 +21,7 @@ impl Preprocessor for InPageTab {
 
     fn run(&self, _ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
         book.for_each_mut(|item| {
-            if let mdbook::BookItem::Chapter(chapter) = item {
+            if let BookItem::Chapter(chapter) = item {
                 let re = regex::Regex::new(r"\{\{\s*#tabs\s*\}\}([\s\S]*?)\{\{\s*#endtabs\s*\}\}")
                     .unwrap();
                 let mut new = String::with_capacity(chapter.content.len());
@@ -71,7 +71,7 @@ impl Preprocessor for InPageTab {
         Ok(book)
     }
 
-    fn supports_renderer(&self, renderer: &str) -> bool {
-        renderer == "html"
+    fn supports_renderer(&self, renderer: &str) -> Result<bool> {
+        Ok(renderer == "html")
     }
 }
