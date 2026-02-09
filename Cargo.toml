@@ -7,6 +7,6 @@ edition = "2024"
 anyhow = { version = "1.0.100", default-features = false }
 clap = { version = "4.5.56", default-features = false, features = ["std"] }
 mdbook-preprocessor = { version = "0.5.2", default-features = false }
-regex = { version = "1.12.2", default-features = false }
+regex = { version = "1.12.3", default-features = false }
 semver = { version = "1.0.27", default-features = false, features = ["std"] }
 serde_json = { version = "1.0.149", default-features = false }
