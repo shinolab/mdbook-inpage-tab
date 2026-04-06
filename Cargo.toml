@@ -8,5 +8,5 @@ anyhow = { version = "1.0.102", default-features = false }
 clap = { version = "4.6.0", default-features = false, features = ["std"] }
 mdbook-preprocessor = { version = "0.5.2", default-features = false }
 regex = { version = "1.12.3", default-features = false }
-semver = { version = "1.0.27", default-features = false, features = ["std"] }
+semver = { version = "1.0.28", default-features = false, features = ["std"] }
 serde_json = { version = "1.0.149", default-features = false }
